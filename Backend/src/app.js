@@ -11,11 +11,12 @@ var corsOptions = {
 let transactionRoutes = require('../routes/api/transaction');
 let userRoutes = require('../routes/api/user');
 
-
-const methodOverride = require("method-override");          //HTTP METHODS
+//HTTP METHODS
+const methodOverride = require("method-override");          
 const req = require('express/lib/request');
 app.use(methodOverride("_method"));
 
+//CORS
 app.use(cors(corsOptions));
 let allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -25,14 +26,18 @@ let allowCrossDomain = function(req, res, next) {
     next();
   }
 app.use(allowCrossDomain);
+
+//BODY-PARSER
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.use(express.static(path.resolve(__dirname, '../public')));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));           // To get req.body
-app.use(session( {secret: "Session"}));
+app.use(express.urlencoded({ extended: false })); // To get req.body
+
+//SESSION
+app.use(session( {secret: "Secret"}));
 
 let port = 3000
 app.listen(process.env.PORT || port, () => console.log("server: ON  Port:", port));

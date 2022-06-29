@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
 
     User.associate = function(models){
         User.hasOne(models.Account,{
-            as: "newAccount",
+            as: "addAccount",
             foreignKey: {
                 name: "user_id", // the JavaScript attribute name
                 field: "user_id", // the column name
