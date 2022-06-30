@@ -1,82 +1,81 @@
-const {User, Account} = require('../../src/database/models');
+const { User, Account } = require('../../src/database/models');
 const bcrypt = require('bcryptjs');
 
 const controller = {
 
     list: (req, res) => {
-        User.findAll({ 
-        raw: true, 
-        where: {id: req.params.id}
+        User.findAll({
+            raw: true,
+            where: { id: req.params.id }
         })
-        .then(result => {
-            if(result){
-                let response = {
-                    meta: {
-                        status: 200,
-                        url: `api/user/${req.params.id}`
-                    },
-                    data: result
-                }
-                res.json(response)
-            }else{
-                let response = {
-                    meta: {
-                        status: 400,
-                        url: `api/user/${req.params.id}`,
-                        msg: "user not found"
+            .then(result => {
+                if (result) {
+                    let response = {
+                        meta: {
+                            status: 200,
+                            url: `api/user/${req.params.id}`
+                        },
+                        data: result
                     }
+                    res.json(response)
+                } else {
+                    let response = {
+                        meta: {
+                            status: 400,
+                            url: `api/user/${req.params.id}`,
+                            msg: "user not found"
+                        }
+                    }
+                    res.json(response)
                 }
-                res.json(response)
-            }
-        })
+            })
     },
     auth_login: (req, res) => {
         if (req.session.userId) {
-          res.status(500).send("You are logged in");
-          return;
+            res.status(500).send("You are logged in");
+            return;
         }
-        let user;
         const { email, password } = req.body;
         try {
             User.findOne({
-            raw: true,
-            where: {
-              email: email,
-            }
-          })
-          .then((data) => {
-            return user = data
-          })
-          .then((user) => {
-              //Check Password
-              bcrypt.compare(password, user.password)
-              .then((result) => {
-                  if (result) {
-                    req.session.userId = user.id;
-                    res.status(200).send("Authed");
-                  } else {
-                    res.status(401).send("Wrong Credentials");
-                  }
-              })
-          })
+                raw: true,
+                where: {
+                    email: email,
+                }
+            })
+                .then((data) => {
+                    return user = data
+                })
+                .then((user) => {
+                    //Check Password
+                    bcrypt.compare(password, user.password)
+                        .then((result) => {
+                            if (result) {
+                                req.session.userId = user.id;
+                                res.status(200).send("Authed");
+                            } else {
+                                res.status(401).send("Wrong Credentials");
+                            }
+                        })
+                })
         } catch {
-          if (!user) {
-            res.status(401).send("Wrong Credentials");
-            return;
-          }
+            if (!user) {
+                res.status(401).send("Wrong Credentials");
+                return;
+            }
         }
-      },
+    },
 
     register: (req, res) => {
-        const {email} = req.body
+        const { email } = req.body
 
         let emailCheck;
         try {
-            User.findOne({ 
-                raw: true, 
-                where: {email: email}
-                })
-            .then((data) =>  emailCheck = data);
+            User.findOne({
+                raw: true,
+                where: { email: email }
+            })
+                .then((data) => emailCheck = data);
         } catch {
             let response = {
                 meta: {
@@ -87,8 +86,8 @@ const controller = {
             }
             res.json(response);
         }
-        
-        if(emailCheck){
+
+        if (emailCheck) {
             let response = {
                 meta: {
                     status: 500,
@@ -104,13 +103,13 @@ const controller = {
                 email: req.body.email,
                 password: bcrypt.hashSync(req.body.password, 10)
             })
-            .then((user) =>{
-                return Account.create({
-                    user_id: user.id
+                .then((user) => {
+                    return Account.create({
+                        user_id: user.id
+                    })
                 })
-            })
-            .then((data => {
-                    if(data){
+                .then((data => {
+                    if (data) {
                         let response = {
                             meta: {
                                 status: 200,
@@ -119,7 +118,7 @@ const controller = {
                             msg: "Successfully account created"
                         }
                         res.json(response)
-                    }else{
+                    } else {
                         let response = {
                             meta: {
                                 status: 400,
@@ -129,7 +128,7 @@ const controller = {
                         }
                         res.json(response)
                     }
-            }))
+                }))
 
         }
 
@@ -137,12 +136,44 @@ const controller = {
     },
     auth_logout: (req, res) => {
         if (req.session.userId) {
-          req.session.destroy();
-          res.status(200).send("Log out");
+            req.session.destroy();
+            res.status(200).send("Log out");
         } else {
-          res.status(401).send("You are not logged in");
+            res.status(401).send("You are not logged in");
         }
-      }
+    },
+
+    auth_user: (req, res) => {
+        if (req.session.userId) {
+            User.findOne({
+                raw: true,
+                where: {
+                    id: req.session.userId
+                }
+            })
+                .then((user) => {
+                    if (!user) res.status(401).json('User Not Found');
+                    const data = {
+                        email: user.email,
+                        userId: user.id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                    };
+                    let response = {
+                        meta: {
+                            status: 200,
+                            url: `api/user/auth`
+                        },
+                        data: data
+                    }
+                    res.json(response)
+
+                })
+                .catch(err => res.status(500).json(err))
+        } else {
+            res.status(401).send("please login");
+        }
+    }
 
 }
 module.exports = controller

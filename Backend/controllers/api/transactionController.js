@@ -32,7 +32,7 @@ const controller = {
                 money: req.body.money,
                 date: req.body.date, //fijarse Error de moment.js o la Date
                 type: req.body.type,
-                account_id: req.params.account,
+                account_id: req.params.account, //Arreglar esto segun la cuenta
                 category_id: req.body.category,
             })
             .then(confirm => {

@@ -39,7 +39,7 @@ app.use(express.urlencoded({ extended: false })); // To get req.body
 //SESSION
 app.use(session( {secret: "Secret"}));
 
-let port = 3000
+let port = 3001
 app.listen(process.env.PORT || port, () => console.log("server: ON  Port:", port));
 
 //APIs SOURCES
