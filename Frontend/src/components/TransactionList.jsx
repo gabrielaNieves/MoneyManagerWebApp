@@ -25,7 +25,8 @@ const TransactionList = () => {
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary="Single-line item"
+                    primary="Dinner"
+                    secondary="$300"
                   />
                 </ListItem>
 

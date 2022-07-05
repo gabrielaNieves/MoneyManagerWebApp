@@ -1,19 +1,19 @@
-import { Stack } from "@mui/material";
-import Main from "./components/Main";
+import { Box, Stack } from "@mui/material";
+import Content from "./components/Content";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import UserCard from "./components/UserCard";
 
 function App() {
   return (
-    <box>
+    <Box>
       <Topbar/>
       <Stack direction="row" spacing={2}>
       <Sidebar/>
-      <Main/>
+      <Content/>
       <UserCard/>
       </Stack>
-    </box>
+    </Box>
   );
 }
 
