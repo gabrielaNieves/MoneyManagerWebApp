@@ -32,7 +32,7 @@ const controller = {
                 money: req.body.money,
                 date: req.body.date, //fijarse Error de moment.js o la Date
                 type: req.body.type,
-                account_id: req.params.account, //Arreglar esto segun la cuenta
+                account_id: 1, //Arreglar esto segun la cuenta
                 category_id: req.body.category,
             })
             .then(confirm => {
@@ -40,9 +40,9 @@ const controller = {
                 if(confirm){
                     response ={
                         meta: {
-                            status: 200,
+                            status: 201,
                             total: confirm.length,
-                            url: `/transaction/${req.params.account}/add` 
+                            url: `/transaction/add` 
                         },
                         data:confirm
                     }
@@ -50,16 +50,45 @@ const controller = {
                     response ={
                         meta: {
                             status: 400,
-                            msg: "Data isn't created"
+                            msg: "Validation Error"
                         },
-                        data:confirm
+                        data:{}
                     }
                 }
-                res.json(respuesta);
+                res.json(response);
             })    
             .catch(error => res.send(error))
-        }
-    
+        },
 
+    delete: (req, res) => {
+       Transaction.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(confirm => {
+            let response;
+            if(confirm){
+                response ={
+                    meta: {
+                        status: 200,
+                        url: `/transaction/delete/${req.params.id}` 
+                    },
+                    data:{}
+                }
+            }else{
+                response ={
+                    meta: {
+                        status: 400,
+                        error: "No Transaction Found"
+                    }
+                }
+            }
+            res.json(response);
+        })    
+        .catch(error => res.status(500).json({
+            error: 'Server Error'
+        }))
+    }
 }
 module.exports = controller

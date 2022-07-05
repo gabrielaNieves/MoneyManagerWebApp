@@ -4,7 +4,7 @@ const transactionAPIController = require('../../controllers/api/transactionContr
 
 //Routes
 router.get('/transaction',transactionAPIController.list)
-router.post('/transaction/:account/add',transactionAPIController.add)
-
+router.post('/transaction/add',transactionAPIController.add)
+router.delete('/transaction/delete/:id', transactionAPIController.delete); 
 
 module.exports = router

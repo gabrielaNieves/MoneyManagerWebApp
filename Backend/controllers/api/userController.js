@@ -36,6 +36,7 @@ const controller = {
             return;
         }
         const { email, password } = req.body;
+        console.log(req.body)
         try {
             User.findOne({
                 raw: true,
@@ -145,6 +146,7 @@ const controller = {
 
     auth_user: (req, res) => {
         if (req.session.userId) {
+            console.log(req.session.userId)
             User.findOne({
                 raw: true,
                 where: {
