@@ -50,6 +50,13 @@ module.exports = (sequelize, DataTypes) => {
                 field: "account_id", // the column name
             }
         })
+        Transaction.belongsTo(models.Category,{
+            as: "category",
+            foreignKey: {
+                name: "category_id", // the JavaScript attribute name
+                field: "category_id", // the column name
+            }
+        })
     }
 
     return Transaction

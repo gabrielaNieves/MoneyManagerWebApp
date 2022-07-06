@@ -10,6 +10,7 @@ var corsOptions = {
 //routes required
 let transactionRoutes = require('../routes/api/transaction');
 let userRoutes = require('../routes/api/user');
+let categoryRoute = require('../routes/api/category');
 
 //HTTP METHODS
 const methodOverride = require("method-override");          
@@ -46,3 +47,4 @@ app.listen(process.env.PORT || port, () => console.log("server: ON  Port:", port
 
 app.use('/api', transactionRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api', categoryRoute)
