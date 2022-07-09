@@ -1,9 +1,22 @@
 import { ArrowCircleDown, ArrowCircleUp } from "@mui/icons-material";
 import { ListItemIcon, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, {useContext} from "react";
+import {GlobalContext} from '../context/GlobalState';
+
 
 const IncomesExpenses = () => {
+    const {transactions} = useContext(GlobalContext);
+    const plus = transactions.filter(transaction => transaction.type === 1);
+    const minus = transactions.filter(transaction => transaction.type === 2);
+  
+
+    const incomes = plus.map(item => Number(item.money)).reduce((acc, item) => (acc += item),0);
+    const expenses = minus.map(item => Number(item.money)).reduce((acc, item) => (acc += item),0);
+
+    
+  
+
     return (
     <Box   flex={1} padding={3} margin='auto' sx={{
         display: "flex",
@@ -23,7 +36,7 @@ const IncomesExpenses = () => {
                Incomes
             </Typography>
             <Typography variant="h5" textAlign="center" color='lightgreen'>
-                $300.00
+                ${incomes}
             </Typography>
         </Box>
         <Box>
@@ -34,7 +47,7 @@ const IncomesExpenses = () => {
                Expenses
             </Typography>
             <Typography variant="h5" textAlign="center" color='red'>
-                $200.00
+                ${expenses}
             </Typography>
         </Box>
 

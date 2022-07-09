@@ -1,8 +1,17 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, {useContext} from "react";
+import {GlobalContext} from '../context/GlobalState';
 
 const Balance = () => {
+  const {transactions} = useContext(GlobalContext);
+
+  const plus = transactions.filter(transaction => transaction.type === 1);
+  const minus = transactions.filter(transaction => transaction.type === 2);
+  
+  const incomes = plus.map(item => Number(item.money)).reduce((acc, item) => (acc += item), 0);
+  const expenses = minus.map(item => Number(item.money)).reduce((acc, item) => (acc += item), 0);
+
     return (
     <Box   flex={1} padding={3} margin='auto' sx={{
         width: 300,
@@ -16,7 +25,7 @@ const Balance = () => {
                Balance
             </Typography>
             <Typography variant="h4" textAlign="center">
-                $100.00
+                ${incomes - expenses}
             </Typography>
 
     </Box> );
