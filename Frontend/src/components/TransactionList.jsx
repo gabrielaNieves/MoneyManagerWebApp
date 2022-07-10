@@ -10,7 +10,7 @@ const TransactionList = () => {
   useEffect(()=>{
     getTransactions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  },[]);
 
 
     return (

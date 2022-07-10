@@ -1,17 +1,46 @@
-import React from 'react';
-import { Avatar, IconButton, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
-import { Delete, Folder, ModeEditRounded } from '@mui/icons-material';
+import React, {useContext, useState} from 'react';
+import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, ListItem, ListItemAvatar, ListItemText, TextField } from "@mui/material";
+import { Delete, Edit, Folder, ModeEditRounded } from '@mui/icons-material';
+import {GlobalContext} from '../context/GlobalState';
+import EditForm from './EditForm';
 
 const Transaction = ({transaction}) => {
+  const {deleteTransaction, editTransaction} = useContext(GlobalContext);
+
+  const [open, setOpen] = useState(false);
+  const [values, setValues] = useState({
+    ...transaction
+});
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+};
+const handleSubmit = () => {
+  editTransaction(transaction.id, values);
+  setOpen(false);
+};
+
+
+
+
     let sign = transaction.type === 1 ? '+': '-';
     return (
+      <>
+      
         <ListItem
                 secondaryAction={
                   <>
                   <IconButton edge="start" aria-label="edit">
-                    <ModeEditRounded/>
+                    <ModeEditRounded onClick={handleClickOpen}/>
                   </IconButton>
-                  <IconButton edge="end" aria-label="delete">
+                  <IconButton onClick={() => deleteTransaction(transaction.id)} edge="end" aria-label="delete">
                     <Delete/>
                   </IconButton>
                   </>
@@ -27,6 +56,20 @@ const Transaction = ({transaction}) => {
                 <ListItemText>{sign} ${transaction.money}</ListItemText>
                 </div>
             </ListItem>
+
+
+
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Edit Transaction</DialogTitle>
+        <DialogContent>
+          <EditForm  values={values} change={handleChange}/>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSubmit}>Edit</Button>
+        </DialogActions>
+      </Dialog>
+    </>
       );
 }
  

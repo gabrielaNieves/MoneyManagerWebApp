@@ -1,12 +1,14 @@
 import { Button, FilledInput, FormControl, InputAdornment, InputLabel, MenuItem, Select } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import {GlobalContext} from '../context/GlobalState';
 
 
 
 
 const IncomesForm = () => {
+    const {addTransaction} = useContext(GlobalContext);
+
     const [values, setValues] = useState({
         title: '',
         money: 0,
@@ -22,15 +24,24 @@ const IncomesForm = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3001/api/transaction/add',
+        addTransaction(
             {
                 title: values.title,
                 money: values.money,
                 date: values.date,
                 type: values.type,
                 category: values.category
-            })
-            .then((res) => console.log(res))
+            }); 
+        setValues(
+            {
+                title: '',
+                money: 0,
+                date: new Date(),
+                type: 1,
+                category: 1
+        
+            }
+        )
     }
 
 

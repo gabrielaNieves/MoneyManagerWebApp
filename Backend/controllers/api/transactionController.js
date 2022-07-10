@@ -30,9 +30,9 @@ const controller = {
             Transaction.create({
                 title: req.body.title,
                 money: req.body.money,
-                date: req.body.date, //fijarse Error de moment.js o la Date
+                date: req.body.date,
                 type: req.body.type,
-                account_id: 1, //Arreglar esto segun la cuenta
+                account_id: 1, //then logged user.
                 category_id: req.body.category,
             })
             .then(confirm => {
@@ -59,6 +59,44 @@ const controller = {
             })    
             .catch(error => res.send(error))
         },
+    edit:  (req, res) => {
+        Transaction.update({
+                title: req.body.title,
+                money: req.body.money,
+                date: req.body.date,
+                category_id: req.body.category,
+        },
+        {
+            where: {
+                id: req.params.id
+            }
+
+        })
+        .then(confirm => {
+            let response;
+            if(confirm){
+                response ={
+                    meta: {
+                        status: 201,
+                        url: `/transaction/${req.params.id}/edit` 
+                    },
+                    data: 'Transaction had been updating'
+                }
+            }else{
+                response ={
+                    meta: {
+                        status: 400,
+                        error: "No Transaction Found"
+                    }
+                }
+            }
+            res.json(response);
+        })    
+        .catch(error => res.status(500).json({
+            error: 'Server Error'
+        }))
+
+    },
 
     delete: (req, res) => {
        Transaction.destroy({
