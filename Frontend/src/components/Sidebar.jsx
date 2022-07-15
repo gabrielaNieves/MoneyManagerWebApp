@@ -8,33 +8,32 @@ const Sidebar = () => {
   return (
     <Box flex={1} padding={5} sx={{ display: { xs: "none", sm: "block" } }}>
       <List>
-        <ListItem disablePadding>
-          <Link to="/">
+        <ListItem disablePadding >
+          <Link style={{textDecoration: 'none', color: 'black'}} to="/">
           <ListItemButton>
             <ListItemIcon>
               <Home />
             </ListItemIcon>
-            <ListItemText primary="Home" />
+            <ListItemText primary="Home"/>
           </ListItemButton>
           </Link>
         </ListItem>
         <ListItem disablePadding>
-          <Link to="/IncomesForm">
+          <Link style={{textDecoration: 'none', color: 'black'}} to="/IncomesForm">
           <ListItemButton>
             <ListItemIcon>
               <ArrowCircleUp />
             </ListItemIcon>
-            <ListItemText primary="Incomes" />
+            <ListItemText primary="add Transaction"/>
           </ListItemButton>
           </Link>
         </ListItem>
         <ListItem disablePadding>
-          <Link to="/ExpensesForm">
+          <Link style={{textDecoration: 'none', color: 'black'}} to="/">
           <ListItemButton>
             <ListItemIcon>
-              <ArrowCircleDown />
             </ListItemIcon>
-            <ListItemText primary="Expenses" />
+            <ListItemText primary="Logout" />
           </ListItemButton>
           </Link>
         </ListItem>

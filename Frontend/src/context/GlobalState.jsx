@@ -3,38 +3,10 @@ import AppReducer from './AppReducer';
 import axios from 'axios'
 
 const initialState = {
-    transactions : [
-        {
-            id: 1 ,
-            title: "Pago alquiler",
-            money: "60000.00",
-            date: "2022-06-24",
-            type: 2,
-            account_id: 1,
-            category_id: 1
-        },
-        {
-            id: 2,
-            title: "pago",
-            money: "20000.00",
-            date: "2022-06-27",
-            type: 2,
-            account_id: 1,
-            category_id: 1
-        },
-        {
-            id: 3,
-            title: "Salario",
-            money: "200000.00",
-            date: "2022-06-27",
-            type: 1,
-            account_id: 1,
-            category_id: 1
-        }
-        
-    ],
+    transactions : [],
     error: null,
-    loading: true
+    loading: true,
+    category: []
 };
 
 //create context
@@ -91,11 +63,11 @@ export const GlobalProvider = ({children}) => {
         console.log(id, transaction)
     
         try {
-          const res = await axios.put(`http://localhost:3001/api/transaction/${id}/edit`, transaction, config);
+          await axios.put(`http://localhost:3001/api/transaction/${id}/edit`, transaction, config);
     
           dispatch({
             type: 'EDIT_TRANSACTION',
-            payload: res.data.data
+            payload: getTransactions()
           });
         } catch (err) {
           dispatch({
@@ -120,16 +92,35 @@ export const GlobalProvider = ({children}) => {
         }
     }
 
+    //category actions
+    async function getCategories(id){
+      try {
+          const res = await axios.get(`http://localhost:3001/api/category/${id}`)
+          dispatch({
+              type: 'GET_CATEGORY',
+              payload: res.data.data,
+          });
+      } catch (err) {
+          dispatch({
+              type: 'CATEGORY_ERROR',
+              payload: err.response.data.error
+          });
+      }
+  }
+
 
 
     return <GlobalContext.Provider value= {{
         transactions: state.transactions,
         error: state.error,
         loading: state.loading,
+        categories: state.category,
         getTransactions,
         addTransaction,
         editTransaction,
         deleteTransaction,
+        getCategories
+
 
     }}>
         {children}

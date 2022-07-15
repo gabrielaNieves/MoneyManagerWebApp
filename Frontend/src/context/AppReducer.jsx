@@ -15,7 +15,7 @@ export default (state, action) => {
             case 'EDIT_TRANSACTION': 
             return {
                 ...state,
-                transactions: state.transactions.map(transaction => transaction)
+                transactions: [...state.transactions, action.payload]
             }
             
         case 'TRANSACTIONS_ERROR':
@@ -27,6 +27,12 @@ export default (state, action) => {
             return {
                 ...state,
                 transactions: state.transactions.filter(transaction => transaction.id !== action.payload)
+            }
+
+        case 'GET_CATEGORY':
+            return {
+                ...state,
+                category: action.payload
             }
         default: 
         return state; 

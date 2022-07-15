@@ -7,19 +7,20 @@ import {GlobalContext} from '../context/GlobalState';
 
 
 const IncomesForm = () => {
-    const {addTransaction} = useContext(GlobalContext);
+    const {addTransaction, categories, getCategories } = useContext(GlobalContext);
 
     const [values, setValues] = useState({
         title: '',
         money: 0,
         date: new Date(),
-        type: 1,
-        category: 1
+        category: ''
 
     });
+    const [type, setType] = useState(0)
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
+ 
     };
 
     const handleOnSubmit = (e) => {
@@ -29,7 +30,7 @@ const IncomesForm = () => {
                 title: values.title,
                 money: values.money,
                 date: values.date,
-                type: values.type,
+                type: type,
                 category: values.category
             }); 
         setValues(
@@ -37,12 +38,20 @@ const IncomesForm = () => {
                 title: '',
                 money: 0,
                 date: new Date(),
-                type: 1,
-                category: 1
+                category: ''
         
             }
         )
     }
+
+    const handleType = (event) => {
+            setType(event.target.value)
+            getCategories(event.target.value)
+
+        }
+        
+    
+console.log(categories)
 
 
     return (
@@ -80,9 +89,10 @@ const IncomesForm = () => {
                     <InputLabel htmlFor="type">Type</InputLabel>
                     <Select
                         id="type"
-                        value={values.type}
-                        onChange={handleChange('type')}
+                        value={type}
+                        onChange={handleType}
                     >
+                        <MenuItem value={0}>Transaction</MenuItem>
                         <MenuItem value={1}>Incomes</MenuItem>
                         <MenuItem value={2}>Expenses</MenuItem>
                     </Select>
@@ -94,12 +104,13 @@ const IncomesForm = () => {
                         value={values.category}
                         onChange={handleChange('category')}
                     >
-                        <MenuItem value={1}>other</MenuItem>
-                        <MenuItem value={2}>Salary</MenuItem>
-                        <MenuItem value={3}>Food</MenuItem>
+                    {categories.map(category =>
+                        (
+                        <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
-                <Button variant="contained" type="submit" >
+                <Button sx={{mt: 6}} variant="contained" type="submit" >
                     Submit
                 </Button>
 

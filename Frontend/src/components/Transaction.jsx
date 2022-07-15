@@ -5,7 +5,7 @@ import {GlobalContext} from '../context/GlobalState';
 import EditForm from './EditForm';
 
 const Transaction = ({transaction}) => {
-  const {deleteTransaction, editTransaction} = useContext(GlobalContext);
+  const {deleteTransaction, editTransaction, getTransactions} = useContext(GlobalContext);
 
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState({

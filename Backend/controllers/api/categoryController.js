@@ -3,9 +3,11 @@ const {Category} = require('../../src/database/models');
 
 const category = (req, res) => {
     Category.findAll({
+        raw: true,
         where: {
             typeId: req.params.id
         }
+
     })
     .then((result => {
         if(result){
