@@ -14,7 +14,7 @@ const TransactionList = () => {
 
 
     return (
-    <Box  flex={1} margin={6} padding={0} maxWidth={700}>
+    <Box  flex={1} mx='auto' maxWidth={650}>
         <List>
               {transactions.map (transaction => (
                 <Transaction key={transaction.id} transaction = {transaction}/>

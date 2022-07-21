@@ -10,7 +10,7 @@ import Main from "./Main";
 
 const Content = () => {
     return (
-    <Box flex={4} padding={5}>
+    <Box flex={4} paddingTop={4} mx={0}>
     <Routes>
         <Route path="/" element={<Main/>}/>
         <Route path="/IncomesForm" element={<IncomesForm />} />

@@ -3,7 +3,12 @@ const {Transaction} = require('../../src/database/models');
 const controller = {
 
     list: (req, res) => {
-        Transaction.findAll({ raw: true })
+        Transaction.findAll({ raw: true,
+        order: [['date','DESC']],
+        limit: 10, 
+        include: [{ association: 'category', attributes: ['name'] }]
+    
+    })
         .then(result => {
             if(result){
                 let response = {
@@ -19,7 +24,7 @@ const controller = {
                     meta: {
                         status: 400,
                         url: `api/transaction`,
-                        msg: "transaction not found"
+                        msg: "transactions not found"
                     }
                 }
                 res.json(response)

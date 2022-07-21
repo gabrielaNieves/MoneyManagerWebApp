@@ -1,6 +1,6 @@
 import React from "react";
 import {AppBar, styled, Toolbar, Typography} from '@mui/material';
-import { Savings } from "@mui/icons-material";
+import { Savings, Menu} from "@mui/icons-material";
 
 
 const StyledToolbar = styled(Toolbar)({
@@ -15,7 +15,11 @@ const Topbar = () => {
             <Typography variant="h6" sx={{display: {xs:"none", sm:"block"}}}>
                 MONEY MANAGER
             </Typography>
-            <Savings sx={{display: {xs:"block", sm:"none"}}}/>
+            <div>
+            <Menu sx={{display: {xs:"inline-flex", sm:"none"}}}/>
+            <Savings sx={{ marginLeft: 2, display: {xs:"inline-flex", sm:"none"}}}/>
+            </div>
+
         </StyledToolbar>
            
     </AppBar> );

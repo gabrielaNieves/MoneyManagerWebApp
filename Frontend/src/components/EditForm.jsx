@@ -1,11 +1,19 @@
 import { FilledInput, FormControl, InputAdornment, InputLabel, MenuItem, Select } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
-
+import React, {useContext} from "react";
+import { useEffect } from "react";
+import {GlobalContext} from '../context/GlobalState';
 
 
 const EditForm = (props) => {
-console.log(props)
+    const {categories, getCategories } = useContext(GlobalContext);
+
+    useEffect(() => {
+        getCategories(props.values.type);
+    },[]);
+    
+
+
     return (
         <Box style={{ display: 'flex', flexDirection: 'column', gap: '5px', alignItems: 'center' }}>
                 <FormControl sx={{ m: 1, width: '25ch' }} variant="filled">
@@ -50,12 +58,13 @@ console.log(props)
                     <InputLabel htmlFor="category"> Category</InputLabel>
                     <Select
                         id="category"
-                        value={props.values.category}
+                        value={props.values.category_id}
                         onChange={props.change('category')}
                     >
-                        <MenuItem value={1}>other</MenuItem>
-                        <MenuItem value={2}>Salary</MenuItem>
-                        <MenuItem value={3}>Food</MenuItem>
+                        {categories.map(category =>
+                        (
+                        <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
         </Box>);

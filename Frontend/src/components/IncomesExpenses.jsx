@@ -18,15 +18,12 @@ const IncomesExpenses = () => {
   
 
     return (
-    <Box   flex={1} padding={3} margin='auto' sx={{
+    <Box   flex={1} padding={3} mx='auto' mb={8} mt={3} sx={{
         display: "flex",
-        justifyContent: 'space-between',
+        justifyContent: {xs:'space-around', sm: 'space-between'} ,
         width: 300,
         height: 50,
-        '&:hover': {
-          backgroundColor: 'gray',
-          opacity: [1, 0.6, 0.8],
-        },
+
       }}>
         <Box>
             <ListItemIcon >
@@ -35,7 +32,7 @@ const IncomesExpenses = () => {
             <Typography variant="h6" textAlign="center">
                Incomes
             </Typography>
-            <Typography variant="h5" textAlign="center" color='lightgreen'>
+            <Typography variant="h5" textAlign="center" color='limegreen'>
                 ${incomes}
             </Typography>
         </Box>

@@ -13,13 +13,9 @@ const Balance = () => {
   const expenses = minus.map(item => Number(item.money)).reduce((acc, item) => (acc += item), 0);
 
     return (
-    <Box   flex={1} padding={3} margin='auto' sx={{
+    <Box   flex={1} paddingTop={2} margin='auto' sx={{
         width: 300,
-        height: 50,
-        '&:hover': {
-          backgroundColor: 'gray',
-          opacity: [1, 0.6, 0.8],
-        },
+        height: 50
       }}>
          <Typography variant="h5" textAlign="center">
                Balance

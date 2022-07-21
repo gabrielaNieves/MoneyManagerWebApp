@@ -1,11 +1,11 @@
 import React, {useContext, useState} from 'react';
-import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, ListItem, ListItemAvatar, ListItemText, TextField } from "@mui/material";
+import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import { Delete, Edit, Folder, ModeEditRounded } from '@mui/icons-material';
 import {GlobalContext} from '../context/GlobalState';
 import EditForm from './EditForm';
 
 const Transaction = ({transaction}) => {
-  const {deleteTransaction, editTransaction, getTransactions} = useContext(GlobalContext);
+  const {deleteTransaction, editTransaction} = useContext(GlobalContext);
 
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState({
@@ -45,7 +45,7 @@ const handleSubmit = () => {
                   </IconButton>
                   </>
                 }
-                sx={{ boxShadow: 1, padding: 2, borderRadius: 1 }}>
+                sx={{ boxShadow: 1, padding: 2, borderRadius: 1.5, zIndex: 2, mb: 1}}>
                 <ListItemAvatar>
                   <Avatar>
                     <Folder />

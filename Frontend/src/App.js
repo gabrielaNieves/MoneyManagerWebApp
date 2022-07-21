@@ -9,7 +9,7 @@ function App() {
   return (
     <GlobalProvider>
       <Topbar/>
-      <Stack direction="row" spacing={2}>
+      <Stack direction="row" spacing={0}>
       <Sidebar/>
       <Content/>
       <UserCard/>

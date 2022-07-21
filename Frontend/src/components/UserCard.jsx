@@ -58,7 +58,7 @@ const UserCard = () => {
     height: 60,
     margin:"auto",
   }} src={'https://as2.ftcdn.net/v2/jpg/00/64/67/63/1000_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />
-        <h3 >Alan Podemski</h3>
+        <h3 >User Name</h3>
         <span className={styles.subheader}>email</span>
       </CardContent>
       <Divider light />

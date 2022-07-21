@@ -8,7 +8,7 @@ import TransactionList from "./TransactionList";
 
 const Main = () => {
     return (
-    <Box flex={1}>
+    <Box flex={1} mx={0}>
         <Balance/>
         <IncomesExpenses/>
         <TransactionList/>
