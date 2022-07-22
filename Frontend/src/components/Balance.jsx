@@ -2,6 +2,7 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, {useContext} from "react";
 import {GlobalContext} from '../context/GlobalState';
+import { numberWithCommas } from "../utils/format";
 
 const Balance = () => {
   const {transactions} = useContext(GlobalContext);
@@ -21,7 +22,7 @@ const Balance = () => {
                Balance
             </Typography>
             <Typography variant="h4" textAlign="center">
-                ${incomes - expenses}
+                ${numberWithCommas(incomes - expenses)}
             </Typography>
 
     </Box> );

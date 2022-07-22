@@ -3,6 +3,7 @@ import { ListItemIcon, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, {useContext} from "react";
 import {GlobalContext} from '../context/GlobalState';
+import { numberWithCommas } from "../utils/format";
 
 
 const IncomesExpenses = () => {
@@ -33,7 +34,7 @@ const IncomesExpenses = () => {
                Incomes
             </Typography>
             <Typography variant="h5" textAlign="center" color='limegreen'>
-                ${incomes}
+                ${numberWithCommas(incomes)}
             </Typography>
         </Box>
         <Box>
@@ -44,7 +45,7 @@ const IncomesExpenses = () => {
                Expenses
             </Typography>
             <Typography variant="h5" textAlign="center" color='red'>
-                ${expenses}
+                ${numberWithCommas(expenses)}
             </Typography>
         </Box>
 
