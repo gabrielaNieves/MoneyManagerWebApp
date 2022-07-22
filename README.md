@@ -4,21 +4,22 @@
 
 ## Installation
 ***
-# Database Script: 
+### Database Script: 
 In Backend Folder.
 Name: budgetApp.sql
 
+### Init
 ***
 ```
 $ cd Backend npm install
 $ cd Frontend npm install
 ```
-# Run Backend 
+### Run Backend 
 ```
 $ cd Backend
 $ npm test
 ```
-# Run Frontend
+### Run Frontend
 ```
 $ cd Frontend
 $ npm start
