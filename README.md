@@ -1,6 +1,6 @@
 ### General Info
 ***
- Full stack Money Manager app (SERN). Fetures: Add transactions, update transactions, delete transactions.
+ Full stack Money Manager app (SERN). Features: Add transactions, update transactions, delete transactions.
 
 ## Installation
 ***
